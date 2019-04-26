@@ -1,4 +1,4 @@
-import React from "react"
+import React, { memo } from "react"
 import useDocWithCache from "app/useDocWithCache"
 import { Link, useLocation } from "app/packages/react-router-next"
 import Avatar from "app/Avatar"
@@ -6,7 +6,7 @@ import { format as formatDate, distanceInWordsToNow } from "date-fns"
 
 const stopPropagation = event => event.stopPropagation()
 
-export default function FeedPost({ post }) {
+export default memo(function FeedPost({ post }) {
   const user = useDocWithCache(`users/${post.uid}`)
   const ariaLink = useAriaLink(`/${post.uid}/${post.date}`)
 
@@ -36,7 +36,7 @@ export default function FeedPost({ post }) {
   ) : (
     <div className="FeedPostShimmer" />
   )
-}
+})
 
 function useAriaLink(href) {
   const { navigate } = useLocation()
